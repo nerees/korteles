@@ -54,7 +54,7 @@ function checkTheCard($id) {
     }
 }',
       CURLOPT_HTTPHEADER => array(
-        'ApiKey: x',
+        'ApiKey: xx',
         'Content-Type: application/json'
       ),
     ));
