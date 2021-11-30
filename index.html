@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="no-js" lang="lt">
+
+<head>
+  <meta charset="utf-8">
+  <title>Dovanų kortelių tikrinimas</title>
+  <meta name="description" content="Čia Market Dovanų kortelių galiojimo patikrinimas">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Čia Market Dovanų kortelių galiojimo patikrinimas">
+  <meta property="og:type" content="Čia Market Dovanų kortelių galiojimo patikrinimas">
+  <meta property="og:url" content="https://dovana.ciamarket.lt">
+  <meta property="og:image" content="https://dovana.ciamarket.lt/img/20.webp">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="img/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="manifest" href="img/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#e64545">
+</head>
+
+<body>
+<header>
+  <div class="section">
+    <div class="container">
+      <div class="logo center"><img src="img/cia_logo.webp" alt="Čia Market Logotipas"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <div class="form-div">
+        <form id="search_form" class="search" method="POST" action="tikrinti/">
+              <p>Tikrinti dovanų kortelės galiojimą</p>
+              <input type="text" name="dk" maxlength="12" minlength="12" placeholder="Įveskite kortelės numerį" pattern="[D][0-9]{11}" title="Kortelės Nr. pvz: D12345678912">
+              <a class="btn-floating btn-large nn-button-search" id="submit_form"><i class="material-icons">search</i></a>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+    <h5>&nbsp;</h5>
+    </div>
+  </div>
+  <div class="section korteles">
+    <div class="container">
+      <div class="row center">
+        <div class="col m6 s12"><h5>Dovanų kortelė 10€</h5><img src="img/10.webp" alt="Dovanų kortelė 10€"></div>
+        <div class="col m6 s12"><h5>Dovanų kortelė 15€</h5><img src="img/15.webp" alt="Dovanų kortelė 15€"></div>
+        <div class="col m6 s12"><h5>Dovanų kortelė 20€</h5><img src="img/20.webp" alt="Dovanų kortelė 20€"></div>
+        <div class="col m6 s12"><h5>Dovanų kortelė 30€</h5><img src="img/30.webp" alt="Dovanų kortelė 30€"></div>
+      </div>
+    </div>
+  </div>
+</header>
+  <div class="section footer center">
+    <h6>&copy; Čia Market</h6>
+  </div>
+
+  <a class="btn-floating btn-large waves-effect waves-light nn-button" id="menu_button"><i id="menu_icon" class="material-icons">menu</i></a>
+  <div id="menu" class="menu">
+    <ul>
+      <li><a href="/">Pradžia</a></li>
+      <li><a href="apie/">Apie</a></li>
+    </ul>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="modalerror" class="modal">
+    <div class="modal-content">
+      <h4>Klaida</h4>
+      <p>Jūsų pateiktas kortelės numeris neteisingas. <br> Patikslinkite dovanų kortelės numerį. <br><br>
+        Kilus klausimams kreipkitės: pagalba@ciamarket.lt
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="closeButton()">Supratau</a>
+    </div>
+  </div>
+
+  <div id="modalapi" class="modal">
+    <div class="modal-content">
+      <h4>Klaida</h4>
+      <p>Sutrikimai tinkle. (API serviso klaida) <br> Pabandykite vėliau. <br><br>
+        Kilus klausimams kreipkitės: <strong>pagalba@ciamarket.lt</strong>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="closeButton()">Supratau</a>
+    </div>
+  </div>
+
+  <div id="modalkortele" class="modal">
+    <div class="modal-content">
+      <h4>Klaida</h4>
+      <p>Jūsų pateiktas kortelės numeris neteisingas. <br> Patikslinkite dovanų kortelės numerį. <br><br>
+        Kilus klausimams kreipkitės: pagalba@ciamarket.lt
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="closeButton()">Supratau</a>
+    </div>
+  </div>
+
+  <div id="modalGalioja" class="modal">
+    <div class="modal-content">
+      <h4>Dovanų kortelė</h4>
+      <p id="nominalas">
+
+      </p>
+      <p id="galiojimas" style="color:#e64545; font-size: 21px;">
+
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat" style="font-weight:bold; font-size:18px;" onclick="closeButton()">Uždaryti</a>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>
